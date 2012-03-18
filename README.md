@@ -1,7 +1,10 @@
-# minitest-metadata
+minitest-metadata
+=================
 
-* Source code: https://github.com/wojtekmach/minitest-metadata
-* API reference: http://rubydoc.info/github/wojtekmach/minitest-metadata/master/frames
+[![Build Status](https://secure.travis-ci.org/wojtekmach/minitest-metadata.png?branch=master)](http://travis-ci.org/wojtekmach/minitest-metadata)
+
+- **Source code:** <https://github.com/wojtekmach/minitest-metadata>
+- **API reference:** <http://rubydoc.info/github/wojtekmach/minitest-metadata/master/frames>
 
 ## Description
 
@@ -58,15 +61,19 @@ end
 
 ## Requirements
 
-* minitest
+- minitest
 
 ## Instalation
 
-    gem install minitest-metadata
+```
+gem install minitest-metadata
+```
 
-or put in a Gemfile
+or put in a Gemfile:
 
-    gem 'minitest-metadata'
+```ruby
+gem 'minitest-metadata'
+```
 
 ## License
 
