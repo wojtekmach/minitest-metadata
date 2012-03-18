@@ -1,6 +1,7 @@
 # minitest-metadata
 
-* https://github.com/wojtekmach/minitest-metadata
+* Source code: https://github.com/wojtekmach/minitest-metadata
+* API reference: http://rubydoc.info/github/wojtekmach/minitest-metadata/master/frames
 
 ## Description
 
