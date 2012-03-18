@@ -1,10 +1,6 @@
 require 'minitest/spec'
 
-# Metadata support for minitest/spec
-module MiniTest::Metadata
-  # Current minitest-metadata version
-  VERSION = '0.1.0'
-end
+require 'minitest-metadata/version'
 
 class MiniTest::Spec
   # Returns Hash metadata for class' test methods
