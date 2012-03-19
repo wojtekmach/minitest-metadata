@@ -12,7 +12,7 @@ describe MiniTest::Spec do
     end
 
     @cls.metadata["test_0001_test1"].must_equal :js => true
-    @cls.metadata["test_0002_test2"].must_equal({})
+    @cls.metadata["test_0002_test2"].must_equal(nil)
     @cls.metadata["test_0003_test3"].must_equal :js => false
   end
 
