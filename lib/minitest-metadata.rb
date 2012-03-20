@@ -19,11 +19,15 @@ class MiniTest::Spec
 
     # @private
     def it(description = "", metadata = {}, &block)
-      methods = test_methods
-      ret = old_it description, &block
-      name = (test_methods - methods).first
-      self.metadata[name] = metadata
-      ret
+      if !metadata.empty?
+        methods = test_methods
+        ret = old_it description, &block
+        name = (test_methods - methods).first
+        self.metadata[name] = metadata
+        ret
+      else
+        old_it description, &block
+      end
     end
   end
 end
