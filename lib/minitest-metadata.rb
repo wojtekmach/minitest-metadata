@@ -14,14 +14,21 @@ class MiniTest::Spec
   end
 
   class << self
+    alias :old_method_added :method_added
+
+    # @private
+    def method_added(name)
+      Thread.current[:minitest_metadata_name] = name.to_s
+      old_method_added(name)
+    end
+
     # @private
     alias :old_it :it
 
     # @private
     def it(description = "", metadata = {}, &block)
-      methods = test_methods
       ret = old_it description, &block
-      name = (test_methods - methods).first
+      name = Thread.current[:minitest_metadata_name]
       self.metadata[name] = metadata
       ret
     end
