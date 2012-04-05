@@ -19,11 +19,9 @@ class MiniTest::Spec
 
     # @private
     def it(description = "", metadata = {}, &block)
-      methods = test_methods
-      ret = old_it description, &block
-      name = (test_methods - methods).first
-      self.metadata[name] = metadata
-      ret
+      old_it(description, &block).tap do |name|
+        self.metadata[name] = metadata
+      end
     end
   end
 end
