@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Minitest-metadata by wojtekmach</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Minitest-metadata</h1>
+        <p>Annotate tests with metadata (key-value),</p>
+        <p class="view"><a href="https://github.com/wojtekmach/minitest-metadata">View the Project on GitHub <small>wojtekmach/minitest-metadata</small></a></p>
+        <ul>
+          <li><a href="https://github.com/wojtekmach/minitest-metadata/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/wojtekmach/minitest-metadata/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/wojtekmach/minitest-metadata">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>minitest-metadata</h1>
+
+<p><a href="http://travis-ci.org/wojtekmach/minitest-metadata"><img src="https://secure.travis-ci.org/wojtekmach/minitest-metadata.png?branch=master" alt="Build Status"></a></p>
+
+<ul>
+<li>
+<strong>Source code:</strong> <a href="https://github.com/wojtekmach/minitest-metadata">https://github.com/wojtekmach/minitest-metadata</a>
+</li>
+<li>
+<strong>API reference:</strong> <a href="http://rubydoc.info/github/wojtekmach/minitest-metadata/master/frames">http://rubydoc.info/github/wojtekmach/minitest-metadata/master/frames</a>
+</li>
+</ul><h2>Description</h2>
+
+<p>minitest-metadata allows you to set metadata (key-value) for your test cases so that
+before and after hooks can use them.</p>
+
+<p>You can use it to:</p>
+
+<ul>
+<li>change environments (prepare drivers, mocks etc)</li>
+<li>mark tests as slow, fast or (God forbid) order dependant</li>
+</ul><h2>Example</h2>
+
+<p>Suppose you want to tag some of your Capybara acceptance tests to
+use JavaScript driver</p>
+
+<div class="highlight">
+<pre><span class="k">class</span> <span class="nc">AcceptanceTest</span> <span class="o">&lt;</span> <span class="no">MiniTest</span><span class="o">::</span><span class="no">Spec</span>
+  <span class="kp">include</span> <span class="no">Capybara</span><span class="o">::</span><span class="no">DSL</span>
+
+  <span class="n">before</span> <span class="k">do</span>
+    <span class="k">if</span> <span class="n">metadata</span><span class="o">[</span><span class="ss">:js</span><span class="o">]</span> <span class="o">==</span> <span class="kp">true</span>
+      <span class="no">Capybara</span><span class="o">.</span><span class="n">current_driver</span> <span class="o">=</span> <span class="no">Capybara</span><span class="o">.</span><span class="n">javascript_driver</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">after</span> <span class="k">do</span>
+    <span class="no">Capybara</span><span class="o">.</span><span class="n">current_driver</span> <span class="o">=</span> <span class="no">Capybara</span><span class="o">.</span><span class="n">default_driver</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">UsersAcceptanceTest</span> <span class="o">&lt;</span> <span class="no">AcceptanceTest</span>
+  <span class="n">it</span> <span class="s2">"basic pagination"</span> <span class="k">do</span>
+    <span class="n">visit</span> <span class="s2">"/users"</span>
+    <span class="n">assert</span> <span class="n">page</span><span class="o">.</span><span class="n">has_content?</span><span class="p">(</span><span class="s2">"Current page: 1"</span><span class="p">)</span>
+
+    <span class="n">click_link</span> <span class="s2">"Next page"</span>
+
+    <span class="n">assert</span> <span class="n">page</span><span class="o">.</span><span class="n">has_content?</span><span class="p">(</span><span class="s2">"Current page: 2"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s2">"keyboard shortcuts pagination"</span><span class="p">,</span> <span class="ss">:js</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="k">do</span>
+    <span class="n">visit</span> <span class="s2">"/users"</span>
+    <span class="n">assert</span> <span class="n">page</span><span class="o">.</span><span class="n">has_content?</span><span class="p">(</span><span class="s2">"Current page: 1"</span><span class="p">)</span>
+
+    <span class="n">press_key</span> <span class="s2">"n"</span>
+
+    <span class="n">assert</span> <span class="n">page</span><span class="o">.</span><span class="n">has_content?</span><span class="p">(</span><span class="s2">"Current page: 2"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<h2>Requirements</h2>
+
+<ul>
+<li>minitest</li>
+</ul><h2>Instalation</h2>
+
+<pre><code>gem install minitest-metadata
+</code></pre>
+
+<p>or put in a Gemfile:</p>
+
+<div class="highlight">
+<pre><span class="n">gem</span> <span class="s1">'minitest-metadata'</span>
+</pre>
+</div>
+
+
+<h2>License</h2>
+
+<p>(The MIT License)</p>
+
+<p>Copyright (c) 2012 Wojciech Mach</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/wojtekmach">wojtekmach</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
