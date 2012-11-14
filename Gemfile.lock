@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    minitest-metadata (0.2.0)
+    minitest-metadata (0.3.0)
       minitest (>= 2.12)
 
 GEM
