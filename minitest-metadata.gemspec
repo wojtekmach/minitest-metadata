@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "minitest-metadata/version"
+require "minitest/metadata/version"
 
 Gem::Specification.new do |s|
   s.name        = "minitest-metadata"

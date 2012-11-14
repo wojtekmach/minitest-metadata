@@ -1,3 +1,7 @@
+# HEAD
+
+* Reorganize file structure, extract MiniTest::Metadata
+
 # 0.2.0
 
 * No need for calculation of test method name - @splattael

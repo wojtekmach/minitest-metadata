@@ -57,7 +57,24 @@ class UsersAcceptanceTest < AcceptanceTest
   end
 end
 ```
+## Note about speed
 
+minitest-metadata adds some overhead so you might want to limit it to only
+acceptance specs. If that's the case do this:
+
+```ruby
+# Gemfile
+
+group :test do
+  gem 'minitest-metadata', :require => false
+end
+
+# test/acceptance_test_helper.rb
+
+class AcceptanceTest < MiniTest::Spec
+  include MiniTest::Metadata
+end
+```
 
 ## Requirements
 
