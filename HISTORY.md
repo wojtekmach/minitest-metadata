@@ -1,6 +1,7 @@
 # HEAD
 
 * Add more compact syntax
+* Dropping 1.8 & REE, and adding 2.0 support
 
 # 0.3.0
 
