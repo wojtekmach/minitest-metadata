@@ -57,6 +57,13 @@ class UsersAcceptanceTest < AcceptanceTest
   end
 end
 ```
+
+As in RSpec, [more compact syntax](https://www.relishapp.com/rspec/rspec-core/docs/metadata/user-defined-metadata#less-verbose-metadata) can be used:
+
+```ruby
+it "keyboard shortcuts pagination", :slow, :wip, :driver => :poltergeist
+```
+
 ## Note about speed
 
 minitest-metadata adds some overhead so you might want to limit it to only
@@ -96,7 +103,7 @@ gem 'minitest-metadata'
 
 (The MIT License)
 
-Copyright (c) 2012 Wojciech Mach
+Copyright (c) 2012, 2013 Wojciech Mach
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

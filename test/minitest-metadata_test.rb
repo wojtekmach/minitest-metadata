@@ -13,11 +13,14 @@ describe MiniTest::Spec do
       it "test2" do; end
 
       it "test3", :js => false do; end
+
+      it "test4", :vcr, :js => false do; end
     end
 
     @cls.metadata["test_0001_test1"].must_equal :js => true
     @cls.metadata["test_0002_test2"].must_equal({})
     @cls.metadata["test_0003_test3"].must_equal :js => false
+    @cls.metadata["test_0004_test4"].must_equal :vcr => true, :js => false
   end
 
   it "#meta returns empty hash when nothing passed to ::it" do

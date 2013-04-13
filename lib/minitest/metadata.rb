@@ -14,10 +14,20 @@ module MiniTest::Metadata
         alias :old_it :it
 
         # @private
-        def it(description = "", metadata = {}, &block)
+        def it(description = "", *metadata, &block)
           old_it(description, &block).tap do |name|
-            self.metadata[name] = metadata
+            self.metadata[name] = _compute_metadata(metadata)
           end
+        end
+
+        def _compute_metadata(metadata)
+          metadata.each_with_object({}) { |key, hash|
+            if key.is_a?(Hash)
+              hash.merge!(key)
+            else
+              hash[key] = true
+            end
+          }
         end
       end
     end

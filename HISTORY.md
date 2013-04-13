@@ -1,5 +1,7 @@
 # HEAD
 
+* Add more compact syntax
+
 # 0.3.0
 
 * Reorganize file structure, extract MiniTest::Metadata
