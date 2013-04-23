@@ -2,6 +2,7 @@
 
 * Add more compact syntax
 * Dropping 1.8 & REE, and adding 2.0 support
+* Depend on minitest ~> 4.7
 
 # 0.3.0
 
