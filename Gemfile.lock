@@ -5,7 +5,7 @@ PATH
       minitest (~> 4.7)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     minitest (4.7.1)
     rake (0.9.2.2)
