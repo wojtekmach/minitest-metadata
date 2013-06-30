@@ -21,12 +21,13 @@ module MiniTest::Metadata
         end
 
         def _compute_metadata(metadata)
-          metadata.each_with_object({}) { |key, hash|
+          metadata.inject({}) { |hash, key|
             if key.is_a?(Hash)
               hash.merge!(key)
             else
               hash[key] = true
             end
+            hash
           }
         end
       end
