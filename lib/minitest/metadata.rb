@@ -12,12 +12,22 @@ module MiniTest::Metadata
       class << self
         # @private
         alias :old_it :it
+        alias :old_test :test
 
         # @private
         def it(description = "", *metadata, &block)
           old_it(description, &block).tap do |name|
             self.metadata[name] = _compute_metadata(metadata)
           end
+        end
+
+        def test(description = "", *metadata, &block)
+          # generated test name isn't returned in this case, name generation
+          # algorithm pulled from https://github.com/rails/rails/blob/v4.0.4/ \
+          # activesupport/lib/active_support/testing/declarative.rb#L26
+          test_name = "test_#{description.gsub(/\s+/,'_')}"
+          old_test(description, &block)
+          self.metadata[test_name] = _compute_metadata(metadata)
         end
 
         def _compute_metadata(metadata)
