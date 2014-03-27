@@ -1,7 +1,7 @@
 require "minitest/autorun"
 require "minitest/metadata"
 
-describe MiniTest::Spec do
+describe 'MiniTest::Spec' do
   include MiniTest::Metadata
 
   it "::metadata returns metadata hash for each test method" do
