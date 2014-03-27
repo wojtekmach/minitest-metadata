@@ -2,3 +2,5 @@ pkg
 .*.sw*
 .yardoc
 doc
+/vendor
+/.bundle
