@@ -18,6 +18,19 @@ You can use it to:
 
 ## Example
 
+```ruby
+require 'minitest/autorun'
+require 'minitest-metadata'
+
+describe 'thing' do
+  it 'does stuff', vcr: true do
+    puts metadata[:vcr] # => true
+  end
+end
+```
+
+## Example with capybara
+
 Suppose you want to tag some of your Capybara acceptance tests to
 use JavaScript driver
 
