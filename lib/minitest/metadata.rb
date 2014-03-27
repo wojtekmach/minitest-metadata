@@ -31,6 +31,9 @@ module MiniTest::Metadata
           }
         end
       end
+
+      # MiniTest 5 compatibility, https://github.com/wojtekmach/minitest-metadata/issues/7
+      alias_method :__name__, :name unless method_defined? :__name__
     end
     super
   end
