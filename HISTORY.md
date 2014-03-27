@@ -1,5 +1,10 @@
 # HEAD
 
+# 0.5.0
+
+* Fix minitest 5 compatibilty - @bbozo
+* Depend on minitest >= 4.7, < 6.0
+
 # 0.4.0
 
 * Add more compact syntax
