@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+require 'json'
+require 'time'
+
+json = JSON(
+  tag: "v%s" % File.read(File.expand_path('../../VERSION', __FILE__)).strip,
+  object: `git rev-parse HEAD`.strip,
+  type: "commit",
+  tagger: {
+    name: `git config user.name`.strip,
+    email: `git config user.email`.strip,
+    date: Time.now.iso8601,
+  }
+)
+
+cmd = "curl -H \"Authorization: token %{token}\" -XPOST https://api.github.com/repos/%{repo}/git/tags -d '%{json}'" % {
+  token: ENV.fetch('GITHUB_TOKEN'),
+  repo: ENV.fetch('TRAVIS_REPO_SLUG'),
+  json: json,
+}
+system cmd
