@@ -1,6 +1,12 @@
 rvm:
-  - 1.9.3
-  - 2.0.0
-  - 2.1.1
-  - jruby
-  - rbx-2
+- 2.1.2
+deploy:
+  provider: rubygems
+  api_key:
+    secure: dPIpnfzlidjHjyrRoYikTqxetwSMsAH5GJqRetAITnKQuxz9NkJjsXjGxdnfOiHFWyQoj1jvdacXaLLmN8WUSL8jsz9ZuIRzRhTJmVm8IcLF/9J+gZGplWOEtPWf1FwXAjJPX+v1BbH5VygSlLR95kuRYgYujN5E4NRh0VZHt28=
+  gem: minitest-metadata
+  on:
+    repo: wojtekmach/minitest-metadata
+    condition: ./script/unreleased
+before_deploy:
+- echo Deployinh...
