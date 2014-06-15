@@ -6,7 +6,11 @@ deploy:
     secure: dPIpnfzlidjHjyrRoYikTqxetwSMsAH5GJqRetAITnKQuxz9NkJjsXjGxdnfOiHFWyQoj1jvdacXaLLmN8WUSL8jsz9ZuIRzRhTJmVm8IcLF/9J+gZGplWOEtPWf1FwXAjJPX+v1BbH5VygSlLR95kuRYgYujN5E4NRh0VZHt28=
   gem: minitest-metadata
   on:
-    repo: wojtekmach/minitest-metadata
-    condition: ./script/unreleased
-before_deploy:
-- echo Deployinh...
+    condition: "-f RELEASE"
+after_success:
+- "./script/unreleased && touch RELEASE"
+after_deploy:
+- "rm -f RELEASE"
+env:
+  global:
+    secure: hhFhgyLXEf3CAQdiHhSXi7sS6E0Jo2t7xMz3rExdM8oUH+caKd+V1NOY23JItuljVwXTorOAZyNnvPdAVwwWEGX5haNk3s++YrBaaXb6YAv8isUNgNkthxRwc9h2ILy0R53I3OHrkA9r9DJTPo5hjrmzLtYOQScdxJPt03nKUyo=
