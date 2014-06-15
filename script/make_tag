@@ -2,9 +2,30 @@
 require 'json'
 require 'time'
 
+ENV['GITHUB_TOKEN'] = 'cebfd9d48eb57bee07660aea1eb166e4ac00d44a'
+ENV['TRAVIS_REPO_SLUG'] = 'wojtekmach/minitest-metadata'
+
+sha = `git rev-parse HEAD`.strip
+tag = "v%s" % File.read(File.expand_path('../../VERSION', __FILE__)).strip
+token = ENV.fetch('GITHUB_TOKEN')
+repo  = ENV.fetch('TRAVIS_REPO_SLUG')
+
+cmd = "curl -H \"Authorization: token %{token}\" -XPOST https://api.github.com/repos/%{repo}/git/refs -d '%{json}'" % {
+  token: token,
+  repo: repo,
+  json: JSON(
+    ref: "refs/tags/#{tag}",
+    sha: sha,
+  )
+}
+unless system cmd
+  puts "Failed"
+  exit 1
+end
+
 json = JSON(
-  tag: "v%s" % File.read(File.expand_path('../../VERSION', __FILE__)).strip,
-  object: `git rev-parse HEAD`.strip,
+  tag: tag,
+  object: sha,
   type: "commit",
   tagger: {
     name: `git config user.name`.strip,
@@ -14,8 +35,8 @@ json = JSON(
 )
 
 cmd = "curl -H \"Authorization: token %{token}\" -XPOST https://api.github.com/repos/%{repo}/git/tags -d '%{json}'" % {
-  token: ENV.fetch('GITHUB_TOKEN'),
-  repo: ENV.fetch('TRAVIS_REPO_SLUG'),
+  token: token,
+  repo: repo,
   json: json,
 }
 system cmd
