@@ -8,7 +8,7 @@ deploy:
   on:
     condition: "-f RELEASE"
 after_success:
-- "./script/unreleased && make_tag && touch RELEASE"
+- "./script/unreleased && ./script/make_tag && touch RELEASE"
 after_deploy:
 - "rm -f RELEASE"
 env:
