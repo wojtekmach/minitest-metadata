@@ -1,5 +1,5 @@
 module MiniTest
   module Metadata
-    VERSION = '0.5.0'
+    VERSION = File.read(File.expand_path("../../../../VERSION", __FILE__)).strip
   end
 end
