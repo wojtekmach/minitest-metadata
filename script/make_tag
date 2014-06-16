@@ -1,14 +1,27 @@
 #!/usr/bin/env ruby
 require 'json'
 require 'time'
-
-ENV['GITHUB_TOKEN'] = 'cebfd9d48eb57bee07660aea1eb166e4ac00d44a'
-ENV['TRAVIS_REPO_SLUG'] = 'wojtekmach/minitest-metadata'
+require 'pp'
 
 sha = `git rev-parse HEAD`.strip
 tag = "v%s" % File.read(File.expand_path('../../VERSION', __FILE__)).strip
 token = ENV.fetch('GITHUB_TOKEN')
 repo  = ENV.fetch('TRAVIS_REPO_SLUG')
+
+cmd = "curl --silent -X POST https://api.travis-ci.org/auth/github?github_token=#{token}"
+result = `#{cmd}`
+travis_token = JSON(result)['access_token']
+
+cmd = "curl --silent -H \"Authorization: token %{token}\" https://api.travis-ci.org/repos/%{repo}/builds?ids=%{id}" % {
+  id: ENV.fetch('TRAVIS_BUILD_ID'),
+  token: travis_token,
+  repo: repo,
+}
+result = `#{cmd}`
+unless JSON(result).first['state'] == 'finished'
+  puts "Build not yet finished"
+  exit 1
+end
 
 cmd = "curl -H \"Authorization: token %{token}\" -XPOST https://api.github.com/repos/%{repo}/git/refs -d '%{json}'" % {
   token: token,
