@@ -4,6 +4,9 @@ rvm:
 - 2.1.2
 - jruby
 - rbx-2
+branches:
+  except:
+  - /^v[0-9]/
 deploy:
   provider: rubygems
   api_key:
