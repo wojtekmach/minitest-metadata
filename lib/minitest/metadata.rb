@@ -20,9 +20,10 @@ module MiniTest::Metadata
         end
 
         def _compute_metadata(metadata)
-          meta = {}
           if metadata[-1].is_a? Hash
-            meta.merge!(metadata.pop)
+            meta = metadata.pop
+          else
+            meta = {}
           end
           metadata.each { |key| meta[key] = true }
           meta
