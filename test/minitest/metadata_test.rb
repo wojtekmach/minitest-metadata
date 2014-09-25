@@ -23,6 +23,16 @@ describe 'MiniTest::Spec' do
     @cls.metadata["test_0004_test4"].must_equal :vcr => true, :js => false
   end
 
+  it "new ::it returns the name of the test method" do
+    @cls = describe "A spec" do
+      include MiniTest::Metadata
+
+      @name = it "test1" do; end
+    end
+
+    @cls.instance_variable_get(:@name).must_equal "test_0001_test1"
+  end
+
   it "#meta returns empty hash when nothing passed to ::it" do
     metadata.must_equal({})
   end
