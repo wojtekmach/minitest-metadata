@@ -15,20 +15,17 @@ module MiniTest::Metadata
 
         # @private
         def it(description = "", *metadata, &block)
-          old_it(description, &block).tap do |name|
-            self.metadata[name] = _compute_metadata(metadata)
-          end
+          name = old_it(description, &block)
+          self.metadata[name] = _compute_metadata(metadata) if metadata
         end
 
         def _compute_metadata(metadata)
-          metadata.inject({}) { |hash, key|
-            if key.is_a?(Hash)
-              hash.merge!(key)
-            else
-              hash[key] = true
-            end
-            hash
-          }
+          meta = {}
+          if metadata[-1].is_a? Hash
+            meta.merge!(metadata.pop)
+          end
+          metadata.each { |key| meta[key] = true }
+          meta
         end
       end
 
