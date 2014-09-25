@@ -1,5 +1,9 @@
 # HEAD
 
+# 0.6.0
+
+* Performance improvements - @tmertens
+
 # 0.5.0
 
 * Fix minitest 5 compatibilty - @bbozo
