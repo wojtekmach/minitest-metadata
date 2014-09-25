@@ -2,7 +2,7 @@ module MiniTest::Metadata
   module ClassMethods
     # Returns Hash metadata for class' test methods
     def metadata
-      @metadata ||= {}
+      @metadata ||= Hash.new({})
     end
   end
 
@@ -16,7 +16,8 @@ module MiniTest::Metadata
         # @private
         def it(description = "", *metadata, &block)
           name = old_it(description, &block)
-          self.metadata[name] = _compute_metadata(metadata) if metadata
+          self.metadata[name] = _compute_metadata(metadata) unless metadata.empty?
+          name
         end
 
         def _compute_metadata(metadata)
