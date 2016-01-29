@@ -6,21 +6,3 @@ rvm:
 - rbx-2
 
 sudo: false
-
-branches:
-  except:
-  - /^v[0-9]/
-deploy:
-  provider: rubygems
-  api_key:
-    secure: dPIpnfzlidjHjyrRoYikTqxetwSMsAH5GJqRetAITnKQuxz9NkJjsXjGxdnfOiHFWyQoj1jvdacXaLLmN8WUSL8jsz9ZuIRzRhTJmVm8IcLF/9J+gZGplWOEtPWf1FwXAjJPX+v1BbH5VygSlLR95kuRYgYujN5E4NRh0VZHt28=
-  gem: minitest-metadata
-  on:
-    condition: "-f RELEASE"
-after_success:
-- "./script/unreleased && ./script/make_tag && touch RELEASE"
-after_deploy:
-- "rm -f RELEASE"
-env:
-  global:
-    secure: "grlke3kFMrCR0tbJn5O7INcfqi+BEA+PLERhQfWSMAxDw9lzu/GFciPU/taUsIZKYhRhW30qR8jwHf+kNwGC+i94B351CP396e9Lgjy3FEgVQlFs0YBJM7sp2StE4g7PPU+NGnmBtlHWFd1Ybhu+y147/iy/C6MngAMfbRh6B/c="
