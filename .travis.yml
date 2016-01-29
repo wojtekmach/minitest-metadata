@@ -6,3 +6,4 @@ rvm:
 - rbx-2
 
 sudo: false
+script: RUBYOPT="-w $RUBYOPT" bundle exec rake
